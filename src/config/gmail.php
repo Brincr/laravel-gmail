@@ -28,10 +28,10 @@ return [
 	|
 	*/
 
-	'project_id' => env('GOOGLE_PROJECT_ID'),
-	'client_id' => env('GOOGLE_CLIENT_ID'),
-	'client_secret' => env('GOOGLE_CLIENT_SECRET'),
-	'redirect_url' => env('GOOGLE_REDIRECT_URI', '/'),
+	'project_id' => env('GOOGLE_GMAIL_PROJECT_ID'),
+	'client_id' => env('GOOGLE_GMAIL_CLIENT_ID'),
+	'client_secret' => env('GOOGLE_GMAIL_CLIENT_SECRET'),
+	'redirect_url' => env('GOOGLE_GMAIL_REDIRECT_URI', '/'),
 
 	'state' => null,
 
@@ -66,12 +66,13 @@ return [
 	| Credentials File Name
 	|--------------------------------------------------------------------------
 	|
-	|   :email to use, clients email on the file
+	|   :email to use, clients email on the file,
+	|	Attention: leave empty if you do NOT want to save the token(s) to disk
 	|
 	|
 	*/
 
-	'credentials_file_name' => env('GOOGLE_CREDENTIALS_NAME', 'gmail-json'),
+	'credentials_file_name' => env('GOOGLE_GMAIL_CREDENTIALS_NAME', 'gmail-json'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -83,7 +84,7 @@ return [
 	|
 	*/
 
-	'allow_multiple_credentials' => env('GOOGLE_ALLOW_MULTIPLE_CREDENTIALS', false),
+	'allow_multiple_credentials' => env('GOOGLE_GMAIL_ALLOW_MULTIPLE_CREDENTIALS', false),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -95,5 +96,5 @@ return [
 	|
 	*/
 
-	'allow_json_encrypt' => env('GOOGLE_ALLOW_JSON_ENCRYPT', false),
+	'allow_json_encrypt' => env('GOOGLE_GMAIL_ALLOW_JSON_ENCRYPT', false),
 ];

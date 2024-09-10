@@ -23,8 +23,11 @@ trait Configurable
 
 	public function config($string = null)
 	{
-		$disk = Storage::disk('local');
 		$fileName = $this->getFileName();
+		if ($fileName === null) {
+			return null;
+		}
+		$disk = Storage::disk('local');
 		$file = "gmail/tokens/$fileName.json";
 		$allowJsonEncrypt = $this->_config['gmail.allow_json_encrypt'];
 
@@ -48,15 +51,19 @@ trait Configurable
 		return null;
 	}
 
-	private function getFileName()
+	private function getFileName(): ?string
 	{
+		$credentialFilename = (string) $this->_config['gmail.credentials_file_name'];
+		if ($credentialFilename === '') {
+			return null;
+		}
+
 		if (property_exists(get_class($this), 'userId') && $this->userId) {
 			$userId = $this->userId;
 		} elseif (auth()->user()) {
 			$userId = auth()->user()->id;
 		}
 
-		$credentialFilename = $this->_config['gmail.credentials_file_name'];
 		$allowMultipleCredentials = $this->_config['gmail.allow_multiple_credentials'];
 
 		if (isset($userId) && $allowMultipleCredentials) {
