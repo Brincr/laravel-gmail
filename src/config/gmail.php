@@ -29,7 +29,7 @@ return [
 	'project_id' => env('GOOGLE_GMAIL_PROJECT_ID'),
 	'client_id' => env('GOOGLE_GMAIL_CLIENT_ID'),
 	'client_secret' => env('GOOGLE_GMAIL_CLIENT_SECRET'),
-	'redirect_url' => env('GOOGLE_GMAIL_REDIRECT_URI', '/'),
+	'redirect_url' => env('GOOGLE_GMAIL_REDIRECT_URI_DEFAULT', '/'),
 
 	'state' => null,
 
