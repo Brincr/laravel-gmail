@@ -32,10 +32,6 @@ class GmailConnection extends Google_Client
 	{
 		$this->app = Container::getInstance();
 		$this->userId = $userId;
-		$this->initConfiguration($config);
-	}
-
-	public function initConfiguration($config = null) {
 		$this->configConstruct($config);
 		$this->configuration = $config;
 	}
@@ -46,10 +42,7 @@ class GmailConnection extends Google_Client
 
 	public function initContext($userId = null, array $configObject = []) {
 		$this->userId = $userId;
-		if ($this->configuration !== null) {
-			$this->setState($userId);
-			$this->initConfiguration($this->configuration);
-		}
+		$this->setState($userId);
 
 		if (!empty($configObject)) {
 			$this->setConfigObject($configObject);
