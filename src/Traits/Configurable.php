@@ -34,6 +34,13 @@ trait Configurable
 		$this->_config['gmail.state'] = $state;
 	}
 
+	public function setRedirectUrl($url) {
+		if ($url === null || (string) $url === '') {
+			return;
+		}
+		$this->_config['gmail.redirect_url'] = $url;
+	}
+
 	public function config($string = null)
 	{
 		if ($this->configObject) {

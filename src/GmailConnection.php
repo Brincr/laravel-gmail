@@ -40,8 +40,9 @@ class GmailConnection extends Google_Client
 		$this->configObject = $configObject;
 	}
 
-	public function initContext($userId = null, array $configObject = []) {
+	public function initContext($userId = null, ?string $redirectUrl = null, array $configObject = []) {
 		$this->userId = $userId;
+		$this->setRedirectUrl($redirectUrl);
 		$this->setState($userId);
 
 		if (!empty($configObject)) {

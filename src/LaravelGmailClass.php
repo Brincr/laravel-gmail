@@ -51,11 +51,11 @@ class LaravelGmailClass extends GmailConnection
 		return $this;
 	}
 
-	public function initContext($userId = null, array $configObject = []) {
+	public function initContext($userId = null, ?string $redirectUrl = null, array $configObject = []) {
 		if ($userId !== null) {
 			$this->setUserId($userId);
 		}
-		parent::initContext($userId, $configObject);
+		parent::initContext($userId, $redirectUrl, $configObject);
 		return $this;
 	}
 
