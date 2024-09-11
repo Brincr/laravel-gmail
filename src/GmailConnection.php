@@ -33,7 +33,7 @@ class GmailConnection extends Google_Client
 		$this->app = Container::getInstance();
 		$this->userId = $userId;
 		if (!empty($configObject)) {
-			$this->configObject = $configObject;
+			$this->setConfigObject($configObject);
 		}
 		$this->configConstruct($config);
 
@@ -45,6 +45,10 @@ class GmailConnection extends Google_Client
 		if ($this->checkPreviouslyLoggedIn()) {
 			$this->refreshTokenIfNeeded();
 		}
+	}
+
+	public function setConfigObject(array $configObject) {
+		$this->configObject = $configObject;
 	}
 
 	/**

@@ -51,6 +51,17 @@ class LaravelGmailClass extends GmailConnection
 		return $this;
 	}
 
+	public function setConfigObject(array $configObject) {
+		parent::setConfigObject($configObject);
+		return $this;
+	}
+
+	public function setUserId($userId)
+	{
+		$this->userId = $userId;
+		return $this;
+	}
+
 	public function redirect()
 	{
 		return Redirect::to($this->getAuthUrl());
