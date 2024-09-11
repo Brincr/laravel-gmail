@@ -59,9 +59,9 @@ class LaravelGmailClass extends GmailConnection
 		return $this;
 	}
 
-	public function redirect()
+	public function redirect($state = null)
 	{
-		return Redirect::to($this->getAuthUrl());
+		return Redirect::to($this->getAuthUrl($state));
 	}
 
 	/**
@@ -69,8 +69,11 @@ class LaravelGmailClass extends GmailConnection
 	 *
 	 * @return string
 	 */
-	public function getAuthUrl()
+	public function getAuthUrl($state = null)
 	{
+		if ($state !== null) {
+			$this->setState($state);
+		}
 		return $this->createAuthUrl();
 	}
 

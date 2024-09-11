@@ -27,6 +27,13 @@ trait Configurable
 		$this->configObject = $config;
 	}
 
+	public function setState($state) {
+		if ($state === null) {
+			return;
+		}
+		$this->_config['gmail.state'] = $state;
+	}
+
 	public function config($string = null)
 	{
 		if ($this->configObject) {
