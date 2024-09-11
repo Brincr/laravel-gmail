@@ -8,13 +8,13 @@ use Illuminate\Support\Facades\Redirect;
 
 class LaravelGmailClass extends GmailConnection
 {
-	public function __construct($config, $userId = null, array $configObject = [])
+	public function __construct($config, $userId = null)
 	{
 		if (class_basename($config) === 'Application') {
 			$config = $config['config'];
 		}
 
-		parent::__construct($config, $userId, $configObject);
+		parent::__construct($config, $userId);
 	}
 
 	/**
@@ -51,8 +51,11 @@ class LaravelGmailClass extends GmailConnection
 		return $this;
 	}
 
-	public function setConfigObject(array $configObject) {
-		parent::setConfigObject($configObject);
+	public function initContext($userId = null, array $configObject = []) {
+		if ($userId !== null) {
+			$this->setUserId($userId);
+		}
+		parent::initContext($userId, $configObject);
 		return $this;
 	}
 
