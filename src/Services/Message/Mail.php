@@ -72,6 +72,11 @@ class Mail extends GmailConnection
 	public $parts;
 
 	/**
+	 * @var
+	 */
+	public $snippet;
+
+	/**
 	 * @var Google_Service_Gmail
 	 */
 	public $service;
@@ -129,6 +134,7 @@ class Mail extends GmailConnection
 		$this->size = $message->getSizeEstimate();
 		$this->threadId = $message->getThreadId();
 		$this->historyId = $message->getHistoryId();
+		$this->snippet = $message->getSnippet();
 		$this->payload = $message->getPayload();
 		if ($this->payload) {
 			$this->parts = collect($this->payload->getParts());
@@ -167,6 +173,16 @@ class Mail extends GmailConnection
 	public function getLabels()
 	{
 		return $this->labels;
+	}
+
+	/**
+	 * Returns the Snippet from the email
+	 *
+	 * @return string
+	 */
+	public function getSnippet()
+	{
+		return $this->snippet;
 	}
 
 	/**
@@ -532,9 +548,9 @@ class Mail extends GmailConnection
 			if (!empty($part->body->attachmentId)) {
 				$attachment = (new Attachment($part->body->attachmentId, $part, $this->userId));
 
-				if ($preload) {
-					$attachment = $attachment->getData();
-				}
+				// if ($preload) {
+				// 	$attachment = $attachment->getData();
+				// }
 
 				$attachments->push($attachment);
 			}

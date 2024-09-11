@@ -24,8 +24,6 @@ return [
 	|
 	|   Leaving the scopes empty fill use readonly
 	|
-	|  Credentials File Name
-	|
 	*/
 
 	'project_id' => env('GOOGLE_GMAIL_PROJECT_ID'),
@@ -61,40 +59,5 @@ return [
 
 	'approval_prompt' => 'force',
 
-	/*
-	|--------------------------------------------------------------------------
-	| Credentials File Name
-	|--------------------------------------------------------------------------
-	|
-	|   :email to use, clients email on the file,
-	|	Attention: leave empty if you do NOT want to save the token(s) to disk
-	|
-	|
-	*/
-
-	'credentials_file_name' => env('GOOGLE_GMAIL_CREDENTIALS_NAME', 'gmail-json'),
-
-	/*
-	|--------------------------------------------------------------------------
-	| Allow Multiple Credentials
-	|--------------------------------------------------------------------------
-	|
-	|   Allow the application to store multiple credential json files.
-	|
-	|
-	*/
-
-	'allow_multiple_credentials' => env('GOOGLE_GMAIL_ALLOW_MULTIPLE_CREDENTIALS', false),
-
-	/*
-	|--------------------------------------------------------------------------
-	| Allow Encryption for json Files
-	|--------------------------------------------------------------------------
-	|
-	|   Use Laravel Encrypt in json Files
-	|
-	|
-	*/
-
-	'allow_json_encrypt' => env('GOOGLE_GMAIL_ALLOW_JSON_ENCRYPT', false),
+	'prompt' => '',
 ];

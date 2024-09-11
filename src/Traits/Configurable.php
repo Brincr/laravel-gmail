@@ -15,62 +15,30 @@ trait Configurable
 
 	protected $additionalScopes = [];
 	private $_config;
+	private $configObject;
 
 	public function __construct($config)
 	{
 		$this->_config = $config;
 	}
 
+	public function setConfiguration($config)
+	{
+		$this->configObject = $config;
+	}
+
 	public function config($string = null)
 	{
-		$fileName = $this->getFileName();
-		if ($fileName === null) {
-			return null;
-		}
-		$disk = Storage::disk('local');
-		$file = "gmail/tokens/$fileName.json";
-		$allowJsonEncrypt = $this->_config['gmail.allow_json_encrypt'];
-
-		if ($disk->exists($file)) {
-			if ($allowJsonEncrypt) {
-				$config = json_decode(decrypt($disk->get($file)), true);
-			} else {
-				$config = json_decode($disk->get($file), true);
-			}
-
+		if ($this->configObject) {
 			if ($string) {
-				if (isset($config[$string])) {
-					return $config[$string];
+				if (isset($this->configObject[$string])) {
+					return $this->configObject[$string];
 				}
-			} else {
-				return $config;
 			}
-
+			return $this->configObject;
 		}
 
 		return null;
-	}
-
-	private function getFileName(): ?string
-	{
-		$credentialFilename = (string) $this->_config['gmail.credentials_file_name'];
-		if ($credentialFilename === '') {
-			return null;
-		}
-
-		if (property_exists(get_class($this), 'userId') && $this->userId) {
-			$userId = $this->userId;
-		} elseif (auth()->user()) {
-			$userId = auth()->user()->id;
-		}
-
-		$allowMultipleCredentials = $this->_config['gmail.allow_multiple_credentials'];
-
-		if (isset($userId) && $allowMultipleCredentials) {
-			return sprintf('%s-%s', $credentialFilename, $userId);
-		}
-
-		return $credentialFilename;
 	}
 
 	/**
@@ -97,12 +65,15 @@ trait Configurable
 	{
 		$type = $this->_config['gmail.access_type'];
 		$approval_prompt = $this->_config['gmail.approval_prompt'];
+		$prompt = $this->_config['gmail.prompt'];
 
 		$this->setScopes($this->getUserScopes());
 
 		$this->setAccessType($type);
 
 		$this->setApprovalPrompt($approval_prompt);
+
+		$this->setPrompt($prompt);
 	}
 
 	public abstract function setScopes($scopes);
@@ -149,4 +120,5 @@ trait Configurable
 
 	public abstract function setApprovalPrompt($approval);
 
+	public abstract function setPrompt($prompt);
 }
