@@ -7,6 +7,7 @@ use Google_Service_Gmail;
 use Google_Service_Gmail_Message;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
+use Symfony\Component\Mime\Part\DataPart;
 use Illuminate\Container\Container;
 use Illuminate\Mail\Markdown;
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
@@ -103,6 +104,13 @@ trait Replyable
 	 * @var array
 	 */
 	private $attachments = [];
+
+	/**
+	 * List of in memory attachments
+	 *
+	 * @var array
+	 */
+	private $attachmentsInMemory = [];
 
 	private $priority = 2;
 
@@ -261,7 +269,6 @@ trait Replyable
 	 */
 	public function attach(...$files)
 	{
-
 		foreach ($files as $file) {
 
 			if (!file_exists($file)) {
@@ -270,6 +277,16 @@ trait Replyable
 
 			array_push($this->attachments, $file);
 		}
+
+		return $this;
+	}
+
+	/**
+	 * $param array $attachment should contain mime, filename and content (raw)
+	 */
+	public function attachInMemory(array &$attachment)
+	{
+		array_push($this->attachmentsInMemory, $attachment);
 
 		return $this;
 	}
@@ -418,6 +435,16 @@ trait Replyable
 
 		foreach ($this->attachments as $file) {
 			$this->symfonyEmail->attachFromPath($file);
+		}
+
+		foreach ($this->attachmentsInMemory as $attachment) {
+			$this->symfonyEmail->addPart(
+                new DataPart(
+                    $attachment['content'],
+                    $attachment['filename'],
+                    $attachment['mime']
+                )
+            );
 		}
 
 		$body->setRaw($this->base64_encode($this->symfonyEmail->toString()));
