@@ -86,7 +86,7 @@ class Mail extends GmailConnection
 	 *
 	 * @param \Google_Service_Gmail_Message $message
 	 * @param bool $preload
-	 * @param  int 	$userId
+	 * @param int|string|null $userId
 	 */
 	public function __construct(\Google_Service_Gmail_Message $message = null, $preload = false, $userId = null, array $configObject = [])
 	{
