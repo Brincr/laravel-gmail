@@ -156,7 +156,7 @@ trait Replyable
 	 *
 	 * @return Replyable
 	 */
-	public function cc($cc, $name = null)
+	public function cc(array $cc, $name = null)
 	{
 		$this->cc = $this->emailList($cc, $name);
 		$this->nameCc = $name;
@@ -193,7 +193,7 @@ trait Replyable
 	 *
 	 * @return Replyable
 	 */
-	public function bcc($bcc, $name = null)
+	public function bcc(array $bcc, $name = null)
 	{
 		$this->bcc = $this->emailList($bcc, $name);
 		$this->nameBcc = $name;
@@ -427,10 +427,10 @@ trait Replyable
 			->priority($this->priority);
 
 		if (isset($this->cc)) {
-			$this->symfonyEmail->cc($this->returnCopies($this->cc));
+			$this->symfonyEmail->cc(...$this->cc);
 		}
 		if (isset($this->bcc)) {
-			$this->symfonyEmail->bcc($this->returnCopies($this->bcc));
+			$this->symfonyEmail->bcc(...$this->bcc);
 		}
 
 		foreach ($this->attachments as $file) {
