@@ -158,7 +158,7 @@ trait Replyable
 	 */
 	public function cc(array $cc, $name = null)
 	{
-		$this->cc = $this->emailList($cc, $name);
+		$this->cc = $cc;
 		$this->nameCc = $name;
 
 		return $this;
@@ -195,7 +195,7 @@ trait Replyable
 	 */
 	public function bcc(array $bcc, $name = null)
 	{
-		$this->bcc = $this->emailList($bcc, $name);
+		$this->bcc = $bcc;
 		$this->nameBcc = $name;
 
 		return $this;
