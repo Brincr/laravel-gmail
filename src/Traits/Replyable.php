@@ -447,7 +447,18 @@ trait Replyable
             );
 		}
 
-		$body->setRaw($this->base64_encode($this->symfonyEmail->toString()));
+		// Add BCC to the headers, which symfonyEmail strips away
+		$bccString = "";
+		if ($this->bcc) {
+	            if (is_array($this->bcc)) {
+	                foreach ($this->bcc as $bcc) {
+	                    $bccString .= "Bcc: " . $bcc . "\r\n";
+	                }
+	            } else {
+	                $bccString .= "Bcc: " . $this->bcc . "\r\n";
+	            }
+	        }
+		$body->setRaw($this->base64_encode($bccString . $this->symfonyEmail->toString()));
 
 		return $body;
 	}
