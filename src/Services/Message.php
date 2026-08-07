@@ -63,7 +63,7 @@ class Message
 	 * @return \Illuminate\Support\Collection
 	 * @throws \Google_Exception
 	 */
-	public function all(string $pageToken = null)
+	public function all(?string $pageToken = null)
 	{
 		if (!is_null($pageToken)) {
 			$this->add($pageToken, 'pageToken');
